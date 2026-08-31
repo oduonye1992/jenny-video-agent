@@ -1,0 +1,33 @@
+# Python dependencies for Jenny Video Agent
+
+# Google Gemini API (new SDK)
+google-genai>=1.0.0
+
+# Anthropic API (verification scoring)
+anthropic>=0.79.0
+
+# OpenAI API
+openai>=1.0.0
+
+# Fal.ai API
+fal-client>=0.4.0
+
+# Supabase (file storage for public URLs)
+supabase>=2.0.0
+
+# YouTube download
+yt-dlp>=2024.0.0
+
+# Video processing
+ffmpeg-python>=0.2.0
+
+# Replicate API (Sora, Veo, Nano Banana)
+replicate>=1.0.0
+
+# ElevenLabs API (TTS, music)
+elevenlabs>=1.0.0
+
+# Utilities
+python-dotenv>=1.0.0
+requests>=2.31.0
+pillow>=10.0.0

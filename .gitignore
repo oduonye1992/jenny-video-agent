@@ -1,0 +1,29 @@
+# Local secrets
+.env
+
+# Generated media and run state
+outputs/
+optimization/
+assets/fonts/
+viewer/frontend/dist/
+viewer/frontend/node_modules/
+viewer/frontend/lighthouse-a11y.json
+
+# Local environments and caches
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Local agent configuration
+.claude/
+.agents/
+CLAUDE.md
+HANDOFF.md
+skills-lock.json
+docs/
+scripts/validate_docs.py
+
+# macOS metadata
+.DS_Store
