@@ -24,6 +24,11 @@ from workflow.cost import COST_PER_STEP
 class TestFalTopazImageUpscale:
     """Tests for the fal_topaz_image_upscale adapter."""
 
+    @pytest.fixture(autouse=True)
+    def mock_health_check(self, monkeypatch):
+        """Keep payload tests offline; health checks have their own tests."""
+        monkeypatch.setattr("workflow.adapters._health.check_fal_health", lambda: True)
+
     def test_registered(self):
         adapter = get_adapter("fal_topaz_image_upscale")
         assert adapter.__class__.__name__ == "FalTopazImageUpscaleAdapter"
