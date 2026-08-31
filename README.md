@@ -1,44 +1,59 @@
 # Jenny Video Agent
 
-Jenny is a Python workflow engine for planning and producing short-form video. It turns a creative brief into structured shot plans, image prompts, video prompts, generated assets, and an assembled result.
+[![CI](https://github.com/oduonye1992/jenny-video-agent/actions/workflows/ci.yml/badge.svg)](https://github.com/oduonye1992/jenny-video-agent/actions/workflows/ci.yml)
 
-The public release contains the reusable engine, model adapters, validation tools, tests, and a small local viewer. Brand-specific prompts, private production notes, and generated media are kept out of this repository.
+Production-minded Python workflow engine for AI-generated video, media orchestration, and creative automation.
 
-## What it does
+Jenny turns a creative brief into validated production data, compiles it into a dependency-aware workflow, runs provider adapters, tracks cost and cached assets, and exposes local run progress through a FastAPI + React viewer.
 
-- Models creative and production plans as validated JSON.
-- Builds a dependency graph for character, image, video, audio, and assembly steps.
-- Supports adapters for video, image, voice, music, storage, and local FFmpeg work.
-- Estimates cost and caches completed assets.
-- Validates prompts and production specs before paid generation.
-- Provides a FastAPI + React viewer for local run output.
+**Relevant roles:** AI Engineer · Backend Engineer · Platform / Workflow Engineer
 
-The basic flow is:
+## What this demonstrates
+
+- **Schema-first design:** creative plans, shot plans, prompts, and assets are represented as validated data.
+- **Workflow orchestration:** a dependency graph coordinates character, image, video, audio, and assembly steps.
+- **Provider abstraction:** external generation services sit behind focused adapters instead of being spread through the workflow.
+- **Paid-API safety:** validation, health checks, cost estimates, and caching happen before expensive generation work.
+- **Observability:** the optional viewer makes local workflow output and progress easy to inspect.
+- **Reliable testing:** the Python suite covers schemas, compilation, adapters, and validation without requiring live provider calls.
+
+## Core flow
 
 ```text
 Brief → Creative plan → Shot plan → Prompts → Generation → Assembly
 ```
 
-## Project layout
+## Architecture
 
 ```text
-workflow/       Core schemas, compiler, DAG engine, validators, and adapters
-scripts/        Validation and workflow utilities
-batch/          Optional Airtable batch helpers
-tests/          Unit tests for schemas, compilation, adapters, and validation
-viewer/         Optional FastAPI backend and React/Vite frontend
+workflow/
+  schemas/       Validated creative and production models
+  compiler/      Brief-to-shot-plan compilation
+  dag/           Dependency-aware execution
+  adapters/      Video, image, voice, music, storage, and FFmpeg integrations
+  validators/    Prompt and production checks
+
+viewer/
+  backend/       FastAPI local API
+  frontend/      React/Vite run viewer
+
+tests/           Offline unit tests for the engine and adapters
 ```
 
-Generated files belong in `outputs/` and are ignored by Git. The engine does not require a particular creative brand; provide your own brief, prompts, and configuration.
+The engine is provider-agnostic. You can bring your own brief, prompts, credentials, and output storage without depending on a particular creative brand.
 
-## Requirements
+## Integrations
+
+Optional adapters include FAL for image and video generation, ElevenLabs for voice and music, Freepik for image upscaling, Supabase for public asset URLs, Google and Anthropic for analysis or review, and Airtable for batch workflows.
+
+## Setup
+
+### Requirements
 
 - Python 3.11+
 - FFmpeg for local media work
 - Node.js 20+ and npm for the optional viewer
 - API keys only for the providers you use
-
-## Setup
 
 ```bash
 git clone https://github.com/oduonye1992/jenny-video-agent.git
@@ -59,7 +74,7 @@ Run the test suite:
 make test
 ```
 
-To try the local viewer, install its frontend dependencies first:
+To run the optional local viewer:
 
 ```bash
 python -m pip install -r viewer/backend/requirements.txt
@@ -71,26 +86,16 @@ cd ../..
 
 The viewer runs at `http://localhost:5173` and reads local run data from `outputs/`.
 
-## API keys
+## Engineering notes
 
-Copy `.env.example` to `.env`. Never commit `.env` or generated media. The available integrations are listed in the example file:
+- Generated media and run output stay in ignored local directories.
+- Provider credentials are loaded from environment variables and should never be committed.
+- The workflow validates prompts and production specs before calling paid services.
+- Provider behavior can change over time, so integrations are intentionally isolated behind adapters.
 
-- FAL for image and video generation
-- ElevenLabs for voice and music
-- Freepik for image upscaling
-- Supabase for public asset URLs
-- Google and Anthropic for optional analysis or review
-- Airtable for optional batch workflows
+## Project status
 
-Each adapter checks its own configuration when it runs, so you can use the engine without configuring every provider.
-
-## Safety and cost
-
-Some adapters call paid external APIs. Review prompts and estimated cost before running a generation pipeline. Keep provider keys in environment variables, use test accounts where possible, and do not upload private reference media to a public host.
-
-## Status
-
-This is an experimental toolkit. The workflow engine and validation layers are the stable parts of the project. Provider APIs, model behavior, and the viewer may change as those services change.
+Jenny is an experimental toolkit. The workflow engine, validation layers, adapter boundaries, and tests are the most reusable parts; provider APIs, model behavior, and the viewer may change as their services evolve.
 
 ## License
 
