@@ -40,7 +40,7 @@ viewer/
 tests/           Offline unit tests for the engine and adapters
 ```
 
-The engine is provider-agnostic. You can bring your own brief, prompts, credentials, and output storage without depending on a particular creative brand.
+The engine is provider-agnostic. You can bring your own brief, prompts, credentials, and output storage. A campaign brief for Pineapple, for example, can use the same workflow without changing the engine.
 
 ## Integrations
 

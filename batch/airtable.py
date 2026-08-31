@@ -9,7 +9,7 @@ Environment:
     AIRTABLE_API_KEY — Personal Access Token with schema.bases:read,
                        data.records:read, data.records:write scopes.
 
-Table: "Batch" in base appBhJexwlKd9Dlpe (tblhWtC95cKkp0m6N).
+The Airtable base and table are supplied through environment variables.
 """
 
 import os
@@ -31,37 +31,6 @@ if not BASE_ID or not TABLE_ID:
         "Find them in your Airtable URL: airtable.com/{BASE_ID}/{TABLE_ID}"
     )
 API_URL = f"https://api.airtable.com/v0/{BASE_ID}/{TABLE_ID}"
-META_URL = f"https://api.airtable.com/v0/meta/bases/{BASE_ID}/tables"
-
-# Field name → field ID mapping (from schema introspection 2026-03-08).
-FIELD_IDS: dict[str, str] = {
-    # Input (user fills — only Input is required)
-    "Input": "fldBNwYEB5tloVTEo",
-    "Video Type": "fld9VkxIgs8iK1zz4",
-    "Duration": "fldoeCsHUlxYZYlp4",
-    "Notes": "fldpVPpt58axVqojN",
-    "Cost Profile": "fld4rm53uPl17k9yg",
-    "Reference Photo": "fld5AKqTaQT5mIMVv",
-    "Model": "fldiS9xJZRoZDI7pH",
-    "Mode": "fldOKzHBJTGTl4dZX",
-    # Output (AI fills from Input)
-    "Plan": "fldEghRkLC1NpjQsN",
-    "Search Keywords": "fldIHLcu2rCIK742C",
-    # Production output
-    "Frames": "fldXiW9pjAp2hA1oN",
-    "Final Video": "fldk4ptApVioqX6T7",
-    "Video Path": "fldZoWa7K5z69XXAr",
-    "Cost": "fldAY47MHMQk324TU",
-    "Error": "fldYE6n5hZyetR9vQ",
-    "Status": "fld15nllIt4b5lxfo",
-    # Identity
-    "Name": "fldLlOILi6rMCQwG7",
-    "Slug": "fldQqVVY21hc4D5Ek",
-    # System
-    "Concept Path": "fld5j5N0CqUhMHz0X",
-    "Run Path": "fldvKipZBna2eWPOS",
-}
-
 # Valid statuses (matches the singleSelect choices).
 STATUSES = {
     "new",
